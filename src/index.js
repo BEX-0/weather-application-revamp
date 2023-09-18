@@ -19,39 +19,15 @@ function formateDate() {
 
  let dateTime = document.querySelector(".date-time");
  dateTime.innerHTML = `${currentDateTime}`;
-
- return currentDateTime;
 }
 
 formateDate();
-
-function changeCity(event) {
- event.preventDefault();
- let input = document.querySelector("#city-input");
-
- let cityElement = document.querySelector("h1");
- cityElement.innerHTML = `${input.value}`;
-
- celsiusLink.classList.add("active");
- fahrenheitLink.classList.remove("active");
-
- let apiKey = "82f43b0671f2tb328187o7be4ab620aa";
- let cityName = document.querySelector("#city-input").value;
- let url = `https://api.shecodes.io/weather/v1/current?query=${cityName}&key=${apiKey}&units=metric`;
-
- axios.get(url).then(changeCurrentWeather);
-}
-
-let form = document.querySelector("#city-search");
-form.addEventListener("submit", changeCity);
 
 let currentTempElement = document.querySelector(".current-temperature");
 
 function changeCurrentWeather(response) {
  let currentTemp = Math.round(response.data.temperature.current);
  currentTempElement.innerHTML = currentTemp;
-
- celsiusTemp = response.data.temperature.current;
 
  let conditionElement = document.querySelector(".current-condition");
  conditionElement.innerHTML = response.data.condition.description;
@@ -70,7 +46,7 @@ function changeCurrentWeather(response) {
   `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
  );
 
- getFiveDay(response.data.city);
+ getForecast(response.data.city);
 }
 
 function convertToFahrenheit(event) {
@@ -105,12 +81,12 @@ function formatDateForecast(timestamp) {
  return days[day];
 }
 
-function changeFiveDay(response) {
- let fiveDayForecast = response.data.daily;
- let fiveDay = document.querySelector(".five-day");
- let fiveDayHTML = `<div class="row">`;
- fiveDayForecast.slice(0, 5).forEach(function (forecastDay) {
-  fiveDayHTML += `
+function showForecast(response) {
+ let forecastData = response.data.daily;
+ let forecastElement = document.querySelector(".five-day");
+ let forecastHTML = `<div class="row">`;
+ forecastData.slice(0, 5).forEach(function (forecastDay) {
+  forecastHTML += `
       <div class="col">
             <div class="day">
               <strong>${formatDateForecast(forecastDay.time)}</strong>
@@ -130,18 +106,20 @@ function changeFiveDay(response) {
             </div>
       </div>`;
  });
- fiveDay.innerHTML = fiveDayHTML;
+ forecastElement.innerHTML = forecastHTML;
 }
-function getFiveDay(city) {
+
+function getForecast(city) {
  let apiKey = "82f43b0671f2tb328187o7be4ab620aa";
  let url = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
 
- axios.get(url).then(changeFiveDay);
+ axios.get(url).then(showForecast);
 }
 
-getFiveDay("Tokyo");
+getForecast("Tokyo");
+let apiKey = "82f43b0671f2tb328187o7be4ab620aa";
 axios
  .get(
-  `https://api.shecodes.io/weather/v1/current?query=Tokyo&key=82f43b0671f2tb328187o7be4ab620aa&units=metric`
+  `https://api.shecodes.io/weather/v1/current?query=Tokyo&key=${apiKey}&units=metric`
  )
  .then(changeCurrentWeather);
