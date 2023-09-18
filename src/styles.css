@@ -54,9 +54,8 @@ footer {
  padding: 100px 0px;
 }
 
-.high {
- font-weight: bold;
- color: var(--secondary);
+.high-low strong {
+ color: var(--seconday);
 }
 
 header {
