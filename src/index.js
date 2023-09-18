@@ -29,7 +29,7 @@ function changeCity(event) {
  event.preventDefault();
  let input = document.querySelector("#city-input");
 
- let city = document.querySelector(".city");
+ let city = document.querySelector("h1");
  city.innerHTML = `${input.value}`;
 
  celsiusLink.classList.add("active");
