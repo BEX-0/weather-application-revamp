@@ -23,11 +23,33 @@ function formateDate() {
 
 formateDate();
 
+function changeCity(event) {
+ event.preventDefault();
+ let input = document.querySelector("#city-input");
+
+ let cityElement = document.querySelector("h1");
+ cityElement.innerHTML = `${input.value}`;
+
+ celsiusLink.classList.add("active");
+ fahrenheitLink.classList.remove("active");
+
+ let apiKey = "82f43b0671f2tb328187o7be4ab620aa";
+ let cityName = document.querySelector("#city-input").value;
+ let url = `https://api.shecodes.io/weather/v1/current?query=${cityName}&key=${apiKey}&units=metric`;
+
+ axios.get(url).then(changeCurrentWeather);
+}
+
+let form = document.querySelector("#city-search");
+form.addEventListener("submit", changeCity);
+
 let currentTempElement = document.querySelector(".current-temperature");
 
 function changeCurrentWeather(response) {
  let currentTemp = Math.round(response.data.temperature.current);
  currentTempElement.innerHTML = currentTemp;
+
+ celsiusTemp = response.data.temperature.current;
 
  let conditionElement = document.querySelector(".current-condition");
  conditionElement.innerHTML = response.data.condition.description;
@@ -53,8 +75,9 @@ function convertToFahrenheit(event) {
  event.preventDefault();
  celsiusLink.classList.remove("active");
  fahrenheitLink.classList.add("active");
+
  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
- currentTemperature.innerHTML = Math.round(fahrenheitTemp);
+ currentTempElement.innerHTML = Math.round(fahrenheitTemp);
 }
 
 let celsiusTemp = null;
@@ -66,7 +89,7 @@ function convertToCelsius(event) {
  event.preventDefault();
  fahrenheitLink.classList.remove("active");
  celsiusLink.classList.add("active");
- currentTemperature.innerHTML = Math.round(celsiusTemp);
+ currentTempElement.innerHTML = Math.round(celsiusTemp);
 }
 
 let celsiusLink = document.querySelector("#celsiusLink");
