@@ -46,6 +46,8 @@ function changeCurrentWeather(response) {
   `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
  );
 
+ celsiusTemp = response.data.temperature.current;
+
  getForecast(response.data.city);
 }
 
@@ -53,8 +55,18 @@ function convertToFahrenheit(event) {
  event.preventDefault();
  celsiusLink.classList.remove("active");
  fahrenheitLink.classList.add("active");
+ let forecastLow = document.querySelectorAll(".low");
+ let forecastHigh = document.querySelectorAll(".high");
  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
- currentTemperature.innerHTML = Math.round(fahrenheitTemp);
+ currentTempElement.innerHTML = Math.round(fahrenheitTemp);
+
+ forecastLow.forEach((low) => {
+  low.innerHTML = Math.round(((Number(low.innerHTML) - 32) * 5) / 9);
+ });
+
+ forecastHigh.forEach((high) => {
+  high.innerHTML = Math.round(((Number(high.innerHTML) - 32) * 5) / 9);
+ });
 }
 
 let celsiusTemp = null;
@@ -64,15 +76,26 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
 function convertToCelsius(event) {
  event.preventDefault();
+ currentTempElement.innerHTML = Math.round(celsiusTemp);
+
+ let forecastLow = document.querySelectorAll(".low");
+ let forecastHigh = document.querySelectorAll(".high");
  fahrenheitLink.classList.remove("active");
  celsiusLink.classList.add("active");
- currentTemperature.innerHTML = Math.round(celsiusTemp);
+
+ forecastLow.forEach((low) => {
+  low.innerHTML = Math.round(((Number(low.innerHTML) - 32) * 5) / 9);
+ });
+
+ forecastHigh.forEach((high) => {
+  high.innerHTML = Math.round(((Number(high.innerHTML) - 32) * 5) / 9);
+ });
 }
 
 let celsiusLink = document.querySelector("#celsiusLink");
 celsiusLink.addEventListener("click", convertToCelsius);
 
-function formatDateForecast(timestamp) {
+function getForecastDay(timestamp) {
  let date = new Date(timestamp * 1000);
  let day = date.getDay();
 
@@ -89,19 +112,17 @@ function showForecast(response) {
   forecastHTML += `
       <div class="col">
             <div class="day">
-              <strong>${formatDateForecast(forecastDay.time)}</strong>
+              <strong>${getForecastDay(forecastDay.time)}</strong>
             </div>
             <img src="${
              forecastDay.condition.icon_url
             }" alt="weather-icon" id="five-day-emoji"></img>
             <div class="high-low">
-              <div>
-                <strong>
-                ${Math.round(forecastDay.temperature.maximum)}°
-                </strong>
+              <div class="high">
+                ${Math.round(forecastDay.temperature.maximum)}
               </div>
-              <div>
-              ${Math.round(forecastDay.temperature.minimum)}°
+              <div class="low">
+              ${Math.round(forecastDay.temperature.minimum)}
               </div>
             </div>
       </div>`;
