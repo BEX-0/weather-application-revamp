@@ -16,16 +16,6 @@ a {
  padding-bottom: 20px;
 }
 
-.card {
- border: 0.5px solid transparent;
- background: transparent;
- margin: 0px;
-}
-
-.card-body {
- padding: 5px 0px;
-}
-
 .current-temperature,
 .high-low,
 ul,

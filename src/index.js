@@ -29,8 +29,8 @@ function changeCity(event) {
  event.preventDefault();
  let input = document.querySelector("#city-input");
 
- let city = document.querySelector("h1");
- city.innerHTML = `${input.value}`;
+ let cityElement = document.querySelector("h1");
+ cityElement.innerHTML = `${input.value}`;
 
  celsiusLink.classList.add("active");
  fahrenheitLink.classList.remove("active");
@@ -41,27 +41,28 @@ function changeCity(event) {
 
  axios.get(url).then(changeCurrentWeather);
 }
+
 let form = document.querySelector("#city-search");
 form.addEventListener("submit", changeCity);
 
-let currentTemperature = document.querySelector(".current-temperature");
+let currentTempElement = document.querySelector(".current-temperature");
 
 function changeCurrentWeather(response) {
  let currentTemp = Math.round(response.data.temperature.current);
- currentTemperature.innerHTML = currentTemp;
+ currentTempElement.innerHTML = currentTemp;
 
  celsiusTemp = response.data.temperature.current;
 
- let condition = document.querySelector(".current-condition");
- condition.innerHTML = response.data.condition.description;
+ let conditionElement = document.querySelector(".current-condition");
+ conditionElement.innerHTML = response.data.condition.description;
 
- let humidity = document.querySelector(".humidity");
- let currentHumidity = response.data.temperature.humidity;
- humidity.innerHTML = `${currentHumidity}%`;
+ let humidityElement = document.querySelector(".humidity");
+ let humidity = response.data.temperature.humidity;
+ humidityElement.innerHTML = `${humidity}%`;
 
- let wind = document.querySelector(".wind");
- let currentWind = response.data.wind.speed;
- wind.innerHTML = `${currentWind}km/h`;
+ let windElement = document.querySelector(".wind");
+ let wind = response.data.wind.speed;
+ windElement.innerHTML = `${wind}km/h`;
 
  let currentEmoji = document.querySelector("#current-emoji");
  currentEmoji.setAttribute(
@@ -111,8 +112,6 @@ function changeFiveDay(response) {
  fiveDayForecast.slice(0, 5).forEach(function (forecastDay) {
   fiveDayHTML += `
       <div class="col">
-        <div class="card">
-          <div class="card-body">
             <div class="day">
               <strong>${formatDateForecast(forecastDay.time)}</strong>
             </div>
@@ -120,17 +119,15 @@ function changeFiveDay(response) {
              forecastDay.condition.icon_url
             }" alt="weather-icon" id="five-day-emoji"></img>
             <div class="high-low">
-              <div class="five-day-high">
+              <div>
                 <strong>
                 ${Math.round(forecastDay.temperature.maximum)}°
                 </strong>
               </div>
-              <div class="five-day-low">
+              <div>
               ${Math.round(forecastDay.temperature.minimum)}°
               </div>
             </div>
-          </div>
-        </div>
       </div>`;
  });
  fiveDay.innerHTML = fiveDayHTML;
