@@ -49,10 +49,6 @@ ul {
  line-height: 1.3;
 }
 
-.five-day .col {
- padding: 0px;
-}
-
 footer {
  padding: 100px 0px;
 }
@@ -134,19 +130,37 @@ ul {
   padding: 5px;
  }
 
- .current-temperature,
- h1 {
-  font-size: 40px;
+ .current-temperature {
+  font-size: 50px;
  }
 
  .date-time {
   font-size: 18px;
  }
 
+ .five-day {
+  padding-top: 30px;
+ }
+
+ .five-day .col {
+  padding: 0px;
+ }
+
+ h1 {
+  font-size: 40px;
+ }
+
+ main {
+  padding-bottom: 30px;
+ }
+
+ .top-upper-right img {
+  display: none;
+ }
+
  .top-upper-right {
   padding-right: 30px;
   padding-left: 0px;
-  padding-top: 0px;
  }
 
  .top-upper-left {
