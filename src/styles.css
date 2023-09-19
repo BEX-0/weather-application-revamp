@@ -1,7 +1,6 @@
 :root {
  --primary: #00b6f8;
- --secondary: #00c5ff;
- --accent: #00dfff;
+ --secondary: #00dfff;
 }
 
 body {
@@ -20,7 +19,7 @@ a {
 .high-low,
 ul,
 a {
- color: var(--accent);
+ color: var(--secondary);
 }
 
 .current-temperature,
@@ -30,9 +29,9 @@ ul {
 }
 
 .current-temperature {
+ color: white;
  font-size: 60px;
  font-weight: bold;
- color: white;
 }
 
 .date-time {
@@ -50,17 +49,17 @@ ul {
  line-height: 1.3;
 }
 
+.five-day .col {
+ padding: 0px;
+}
+
 footer {
  padding: 100px 0px;
 }
 
-.high-low strong {
- color: var(--seconday);
-}
-
-header {
- top: 20px;
- position: relative;
+.high-low strong,
+footer a {
+ color: var(--primary);
 }
 
 h1 {
@@ -69,6 +68,7 @@ h1 {
 }
 
 input {
+ margin: auto;
  border-radius: 10px;
  position: relative;
  padding: 5px 20px;
@@ -87,13 +87,18 @@ main {
  top: 40px;
 }
 
+.row:first-of-type {
+ top: 20px;
+ position: relative;
+}
+
 .top-upper-left {
- text-align: start;
+ text-align: left;
  padding-left: 100px;
 }
 
 .top-upper-right {
- text-align: end;
+ text-align: right;
  padding-right: 100px;
 }
 
@@ -102,7 +107,7 @@ ul {
  font-weight: 100px;
  list-style: none;
  padding-left: 0px;
- color: var(--primary);
+ line-height: normal;
 }
 
 .unit-convert {
@@ -112,4 +117,51 @@ ul {
 
 .unit-convert .active {
  color: white;
+}
+
+@media (max-width: 925px) {
+ .top-upper-left {
+  padding-left: 50px;
+ }
+
+ .top-upper-right {
+  padding-right: 50px;
+ }
+}
+
+@media (max-width: 576px) {
+ #city-input {
+  padding: 5px;
+ }
+
+ .current-temperature,
+ h1 {
+  font-size: 40px;
+ }
+
+ .date-time {
+  font-size: 18px;
+ }
+
+ .top-upper-right {
+  padding-right: 30px;
+  padding-left: 0px;
+  padding-top: 0px;
+ }
+
+ .top-upper-left {
+  padding-left: 30px;
+  padding-right: 0px;
+ }
+
+ ul,
+ .day,
+ .high-low,
+ #city-input {
+  font-size: 16px;
+ }
+
+ .unit-convert {
+  font-size: 12px;
+ }
 }

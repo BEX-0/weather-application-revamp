@@ -116,7 +116,7 @@ function showForecast(response) {
             </div>
             <img src="${
              forecastDay.condition.icon_url
-            }" alt="weather-icon" id="five-day-emoji"></img>
+            }" alt="weather-icon" id="five-day-emoji" class="img-fluid"></img>
             <div class="high-low">
               <div>
                 <strong>

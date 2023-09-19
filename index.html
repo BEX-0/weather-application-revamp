@@ -30,8 +30,8 @@
      <input type="search" id="city-input" placeholder="Enter City Here" />
      <input type="submit" class="btn btn-outline-light" value="Search" />
     </form>
-    <header class="row">
-     <section class="col top-upper-left">
+    <div class="row">
+     <div class="col top-upper-left">
       <h1>Tokyo</h1>
       <div class="date-time"></div>
       <ul>
@@ -39,18 +39,19 @@
        <li>Humidity: <span class="humidity"></span></li>
        <li>Wind: <span class="wind"></span></li>
       </ul>
-     </section>
-     <section class="col top-upper-right">
+     </div>
+     <div class="col top-upper-right">
       <img
       src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/scattered-clouds-day.png""
-      alt="Cloudy" id="current-emoji" width="150px">
+      alt="Cloudy" id="current-emoji" class="d-lg-inline d-sm-block"
+      width="150px">
       <span class="current-temperature"></span>
       <span class="unit-convert">
        <a href="#" id="celsiusLink" class="active">°C</a> |
        <a href="#" id="fahrenheitLink">°F</a>
       </span>
-     </section>
-    </header>
+     </div>
+    </div>
     <section class="five-day"></section>
    </main>
   </div>
